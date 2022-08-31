@@ -39,6 +39,20 @@ extern "C" {
     fn ret_abi_test_5() -> Return5;
 }
 
+#[derive(Debug)]
+struct U32Pair {
+    a: u32,
+    b: u32,
+}
+
+#[inline(never)]
+fn u128_test(p1: U32Pair) {
+    let x = dbg!(p1.a) as u128 * 10;
+    dbg!(x);
+    let y = x + 1;
+    dbg!(y);
+}
+
 fn main() {
     unsafe {
         abi_test_5(0, 0, 0, 0, Pair { a: 1, b: 2 });
@@ -53,4 +67,6 @@ fn main() {
         println!("ret_abi_test_4: {:?}", ret_abi_test_4());
         println!("ret_abi_test_5: {:?}", ret_abi_test_5());
     }
+
+    u128_test(U32Pair { a: 1, b: 0 });
 }
